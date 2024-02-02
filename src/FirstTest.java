@@ -157,7 +157,48 @@ public class FirstTest {
         );
     }
 
-    //функции
+    @Test
+    public void testSearchResultAndClear()
+    {
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+                "Cannot find 'Skip' button",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Java",
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+         WebElement searchResults = waitForElementPresent(
+                By.xpath("//android.view.ViewGroup[@instance=2]"),
+                "Cannot find results of search",
+                5
+        );
+
+        waitForElementAndClear(
+                By.id("org.wikipedia:id/search_src_text"),
+                "Cannot find search field",
+                5
+        );
+
+        waitForElementNotPresent(
+                By.xpath("//android.view.ViewGroup[@instance=2]"),
+                "Search results not clear",
+                5
+        );
+    }
+
+    //методы
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
@@ -196,8 +237,8 @@ public class FirstTest {
         return element;
     }
 
-    private void assertElementHasText(By by, String expected_text, String error_message, long timeOutInSeconds) {
-        WebElement webElement = waitForElementPresent(by, error_message);
+    private void assertElementHasText(By by, String expected_text, String error_message, long timeoutInSeconds) {
+        WebElement webElement = waitForElementPresent(by, error_message, timeoutInSeconds);
         String element = webElement.getText();
         Assert.assertEquals(error_message,expected_text,element);
     }
