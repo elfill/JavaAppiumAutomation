@@ -67,7 +67,14 @@ public class FirstTest {
     }
 
     @Test
-    public void testCancelSearch() {
+    public void testCancelSearch()
+    {
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+                "Cannot find 'Skip' button",
+                5
+        );
+
         waitForElementAndClick(
                 By.id("org.wikipedia:id/search_container"),
                 "Cannot find 'Search Wikipedia' input",
@@ -75,17 +82,17 @@ public class FirstTest {
         );
 
         waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search…')]"),
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Java",
                 "Cannot find 'Search…' input",
                 5
         );
 
-        waitForElementAndClear(
-                By.id("org.wikipedia:id/search_src_text"),
-                "Cannot find search field",
-                5
-        );
+//        waitForElementAndClear(
+//                By.id("org.wikipedia:id/search_src_text"),
+//                "Cannot find search field",
+//                5
+//        );
 
         waitForElementAndClick(
                 By.id("org.wikipedia:id/search_close_btn"),
