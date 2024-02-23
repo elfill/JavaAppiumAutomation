@@ -479,10 +479,26 @@ public class FirstTest {
         );
 
         Assert.assertEquals(
-                "Article tit;e have been changed after screen rotation",
+                "Article title have been changed after screen rotation",
                 title_before_rotation,
                 title_after_rotation
         );
+
+        driver.rotate(ScreenOrientation.PORTRAIT);
+
+        String title_after_second_rotation = waitForElementAndGetAttribute(
+                By.id("pcs-edit-section-title-description"),
+                "text",
+                "Cannot find title of article",
+                15
+        );
+
+        Assert.assertEquals(
+                "Article title have been changed after screen rotation",
+                title_before_rotation,
+                title_after_second_rotation
+        );
+
 
     }
 
