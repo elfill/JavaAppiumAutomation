@@ -1,21 +1,20 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import jdk.jfr.Timestamp;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class FirstTest {
 
@@ -248,43 +247,41 @@ public class FirstTest {
     @Test
     public void saveFirstArticleToMyList()
     {
-        int timeout_in_seconds = 10;
-
         waitForElementAndClick(
                 By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
                 "Cannot find 'Skip' button",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Java",
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = 'Object-oriented programming language']"),
                 "Cannot find 'Object-oriented programming language' topic searching by Java",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@content-desc='Save']"),
                 "Cannot find button to save article",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//android.widget.LinearLayout//*[@resource-id ='org.wikipedia:id/snackbar_action']"),
                 "Cannot find button to save article",
-                timeout_in_seconds
+                5
         );
 
         String name_of_folder = "Learning programming";
@@ -293,49 +290,49 @@ public class FirstTest {
                 By.id("org.wikipedia:id/text_input"),
                 name_of_folder,
                 "Cannot put text into articles folder input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@text = 'OK']"),
                 "Cannot press 'OK' button",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//android.widget.ImageButton[@content-desc= 'Navigate up']"),
                 "Cannot close article, cannot find 'X' link",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//android.widget.ImageButton[@content-desc= 'Navigate up']"),
                 "Cannot close search list, cannot find 'arrow back' link",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//android.widget.FrameLayout[@content-desc = 'Saved']"),
                 "Cannot find navigation button 'Saved'",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.id("org.wikipedia:id/negativeButton"),
                 "Cannot press 'Not now' button",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@text = '" + name_of_folder + "']"),
                 "Cannot find created folder",
-            timeout_in_seconds
+            5
         );
 
         waitForElementPresent(
                 By.xpath("//*[@text = 'Object-oriented programming language']"),
                 "Cannot find 'Object-oriented programming language' text",
-                timeout_in_seconds
+                5
         );
 
         swipeElementToLeft(
@@ -346,7 +343,7 @@ public class FirstTest {
         waitForElementNotPresent(
                 By.xpath("//*[@text = 'Object-oriented programming language']"),
                 "Cannot delete saved article",
-                timeout_in_seconds
+                5
         );
 
     }
@@ -505,31 +502,30 @@ public class FirstTest {
     @Test
     public void testCheckSearchArticleInBackground()
     {
-        int timeout_in_seconds = 10;
 
         waitForElementAndClick(
                 By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
                 "Cannot find 'Skip' button",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Java",
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementPresent(
                 By.xpath("//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = 'Object-oriented programming language']"),
                 "Cannot find 'Object-oriented programming language' topic searching by Java",
-                timeout_in_seconds
+                5
         );
 
         driver.runAppInBackground(2);
@@ -537,7 +533,7 @@ public class FirstTest {
         waitForElementPresent(
                 By.xpath("//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = 'Object-oriented programming language']"),
                 "Cannot find 'Object-oriented programming language' topic after returning from background",
-                timeout_in_seconds
+                5
         );
 
     }
@@ -545,43 +541,42 @@ public class FirstTest {
     @Test
     public void saveTwoArticleToMyList()
     {
-        int timeout_in_seconds = 10;
-
+        
         waitForElementAndClick(
                 By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
                 "Cannot find 'Skip' button",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Java",
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = 'Object-oriented programming language']"),
                 "Cannot find 'Object-oriented programming language' topic searching by Java",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@content-desc='Save']"),
                 "Cannot find button to save article",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//android.widget.LinearLayout//*[@resource-id ='org.wikipedia:id/snackbar_action']"),
                 "Cannot find button to save article",
-                timeout_in_seconds
+                5
         );
 
         String name_of_folder = "Save 2 article";
@@ -590,56 +585,56 @@ public class FirstTest {
                 By.id("org.wikipedia:id/text_input"),
                 name_of_folder,
                 "Cannot put text into articles folder input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@text = 'OK']"),
                 "Cannot press 'OK' button",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Java",
                 "Cannot find 'Search Wikipedia' input",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = 'Island in Indonesia']"),
                 "Cannot find 'Island in Indonesia' topic searching by Java",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//*[@content-desc='Save']"),
                 "Cannot find button to save article",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//android.widget.LinearLayout//*[@resource-id ='org.wikipedia:id/snackbar_action']"),
                 "Cannot find button to save article",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.id("org.wikipedia:id/item_title_container"),
                 "Cannot choose existing folder to save article",
-                timeout_in_seconds
+                5
         );
 
         waitForElementAndClick(
                 By.xpath("//android.widget.LinearLayout//*[@text ='View list']"),
                 "Cannot find button to save article",
-                timeout_in_seconds
+                5
         );
 
 
@@ -668,7 +663,7 @@ public class FirstTest {
         waitForElementNotPresent(
                 By.xpath("//*[@text = 'Object-oriented programming language']"),
                 "Cannot delete saved article",
-                timeout_in_seconds
+                5
         );
 
         int amount_of_saved_articles_after_deletion = getAmountOfElements(
@@ -699,6 +694,44 @@ public class FirstTest {
                 title_after_deletion
         );
 
+    }
+
+        @Test
+        public void testForSearchTitle()
+    {
+
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+                "Cannot find 'Skip' button",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Java",
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = 'Object-oriented programming language']"),
+                "Cannot find 'Object-oriented programming language' topic searching by Java",
+                5
+        );
+
+        assertElementPresent(
+                By.id("pcs-edit-section-title-description"),
+                "text",
+                "Object-oriented programming language",
+                "Element is not found",
+                5
+        );
     }
 
     //методы
@@ -820,5 +853,16 @@ public class FirstTest {
     {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         return  element.getAttribute(attribute);
+    }
+
+    private void assertElementPresent (By by, String attribute, String expected_result, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
+        String actual_result = element.getAttribute(attribute);
+
+        Assert.assertTrue(
+                error_message,
+                actual_result.equals(expected_result)
+        );
     }
 }
