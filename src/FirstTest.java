@@ -696,6 +696,43 @@ public class FirstTest {
 
     }
 
+    @Test
+    public void testAssertExpection()
+    {
+
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+                "Cannot find 'Skip' button",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Java",
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = 'Object-oriented programming language']"),
+                "Cannot find 'Object-oriented programming language' topic searching by Java",
+                5
+        );
+
+        assertElementPresent(
+                By.id("pcs-edit-section-title-description"),
+                "text",
+                "Object-oriented programming language",
+                "Element is not found",
+                5
+        );
+    }
 
 
     //методы
@@ -818,5 +855,14 @@ public class FirstTest {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         return  element.getAttribute(attribute);
     }
+    private void assertElementPresent (By by, String attribute, String expected_result, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
+        String actual_result = element.getAttribute(attribute);
 
+        Assert.assertTrue(
+                error_message,
+                actual_result.equals(expected_result)
+        );
+    }
 }
