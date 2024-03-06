@@ -29,13 +29,24 @@ public class CoreTestCase extends TestCase {
         capabilities.setCapability("app", "/Users/16984529/Desktop/JavaApiumAutomation/JavaAppiumAutomation/apks/Wikipedia_2.7.50449-r-2023-07-31_Apkpure.apk");
 
         driver = new AndroidDriver(new URL(AppiumUrl), capabilities);
+        this.rotateScreenPortrait();
     }
 
     @Override
     protected void tearDown() throws Exception {
-        driver.rotate(ScreenOrientation.PORTRAIT);
         driver.quit();
         super.tearDown();
+    }
+
+    protected void  rotateScreenPortrait(){
+        driver.rotate(ScreenOrientation.PORTRAIT);
+    }
+    protected void  rotateScreenLandscape(){
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+    }
+
+    protected void backgroundApp(int seconds){
+        driver.runAppInBackground(seconds);
     }
 
 }

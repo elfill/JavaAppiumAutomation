@@ -1,4 +1,4 @@
-package lib.UI;
+package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import org.junit.Assert;
