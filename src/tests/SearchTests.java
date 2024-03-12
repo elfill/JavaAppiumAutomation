@@ -53,5 +53,27 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.assertThereIsNoResultOfSearch();
     }
 
+    @Test
+    public void testSearchAndCompareText() {
+        {
+            SearchPageObject SearchPageObject = new SearchPageObject(driver);
+            SearchPageObject.pressSkipButtonAtStartOfApp();
+            String compared_text = "Search Wikipedia";
+            SearchPageObject.compareText(compared_text);
+        }
+    }
+
+    @Test
+    public void testSearchResultAndClear()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.pressSkipButtonAtStartOfApp();
+        SearchPageObject.initSearchInput();
+        String search_line = "Java";
+        SearchPageObject.typeSearchLine(search_line);
+        SearchPageObject.waitForSearchResult(search_line);
+        SearchPageObject.clearSearchFiled();
+        SearchPageObject.waitElementNotPresent(search_line);
+    }
 
 }

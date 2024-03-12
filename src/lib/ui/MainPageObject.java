@@ -117,7 +117,7 @@ public class MainPageObject {
                 .perform();
     };
 
-    public  int getAmountOfElements(By by)
+    public int getAmountOfElements(By by)
     {
         List elements = driver.findElements(by);
         return elements.size();
@@ -132,11 +132,11 @@ public class MainPageObject {
         }
     }
 
-    public String waitForElementAndGetAttribute(By by, String attribute, String error_message, long timeoutInSeconds)
-    {
+    public String waitForElementAndGetAttribute(By by, String attribute, String error_message, long timeoutInSeconds){
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
-        return  element.getAttribute(attribute);
+        return element.getAttribute(attribute);
     }
+
     public void assertElementPresent (By by, String attribute, String expected_result, String error_message, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);

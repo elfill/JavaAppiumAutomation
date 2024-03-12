@@ -12,7 +12,7 @@ public class SearchPageObject extends MainPageObject {
     private static final String
             SEARCH_SKIP_BUTTON = "org.wikipedia:id/fragment_onboarding_skip_button",
             SEARCH_INIT_ELEMENT = "//*[contains(@text, 'Search Wikipedia')]",
-            SEARCH_INPUT = "//*[contains(@text, 'Search Wikipedia')]",
+            SEARCH_INPUT = "org.wikipedia:id/search_src_text",
             SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
             SEARCH_RESULT_BY_SUBSTRING_TPL = "//*[@resource-id = 'org.wikipedia:id/fragment_search_results']//*[@text = '{SUBSTRING}']",
             SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']",
@@ -69,14 +69,14 @@ public class SearchPageObject extends MainPageObject {
     public void clickCancelSearch(){
         this.waitForElementAndClick(
                 By.id(SEARCH_CANCEL_BUTTON),
-                "Cannot find and click cancel buttion",
+                "Cannot find and click cancel button",
                 5);
     }
 
     public void typeSearchLine(String search_line){
         this.waitForElementAndSendKeys(
-                By.xpath(SEARCH_INPUT), search_line,
-                "Cannot find and type into serach input",
+                By.id(SEARCH_INPUT), search_line,
+                "Cannot find and type into search input",
                 5);
     }
 
@@ -120,8 +120,24 @@ public class SearchPageObject extends MainPageObject {
         this.assertElementHasText(
                 By.xpath(compared_text_xpath),
                 compared_text,
-                "The expected text does not match the found ",
+                "Expected text " + "'" + compared_text + "'" + " not found",
                 5);
+    }
+
+    public void waitElementNotPresent(String search_line){
+        this.waitForElementNotPresent(
+                By.xpath(SEARCH_RESULT_ELEMENT),
+                "Search result " + "'" + search_line + "'" + " still appear ",
+                5
+        );
+    }
+
+    public void clearSearchFiled(){
+        this.waitForElementAndClear(
+                By.id(SEARCH_INPUT),
+                "Cannot find search field",
+                5
+        );
     }
 
 }
