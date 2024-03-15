@@ -10,11 +10,11 @@ public class NavigationUI extends MainPageObject{
     }
 
     private static final String
-            SAVED_BUTTON_LINK = "//android.widget.FrameLayout[@content-desc = 'Saved']";
+            SAVED_BUTTON_LINK = "xpath://android.widget.FrameLayout[@content-desc = 'Saved']";
 
     public void clicksaved(){
         this.waitForElementAndClick(
-                By.xpath(SAVED_BUTTON_LINK),
+                SAVED_BUTTON_LINK,
                 "Cannot find navigation button 'Saved'",
                 5
         );

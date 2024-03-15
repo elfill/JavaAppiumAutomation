@@ -1,7 +1,6 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class ArticlePageObject extends MainPageObject {
@@ -11,16 +10,17 @@ public class ArticlePageObject extends MainPageObject {
     }
 
     private static final String
-            TITLE_IN_PORTRAIT_ORIENTATION = "//android.view.View/android.view.View[@instance = 2]",
-            TITLE_IN_LANDSCAPE_ORIENTATION = "//android.view.View/android.view.View[@instance = 3]",
-            FOOTER = "//*[@text='View article in browser']",
-            SAVE_BUTTON = "//*[@content-desc='Save']",
-            ADD_TO_LIST_BUTTON = "//android.widget.LinearLayout//*[@resource-id ='org.wikipedia:id/snackbar_action']",
-            MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input",
-            MY_LIST_OK_BUTTON = "//*[@text = 'OK']",
-            NAVIGATE_UP_BUTTON = "//android.widget.ImageButton[@content-desc= 'Navigate up']",
-            SAVE_TO_FOLDER_TPL = "//*[contains(@text, '{NAME_OF_FOLDER}')]",
-            VIEW_LIST_BUTTON = "//android.widget.LinearLayout//*[@text ='View list']"
+            TITLE_IN_PORTRAIT_ORIENTATION = "xpath://android.view.View/android.view.View[@instance = 2]",
+            TITLE_IN_LANDSCAPE_ORIENTATION = "xpath://android.view.View/android.view.View[@instance = 3]",
+            FOOTER = "xpath://*[@text='View article in browser']",
+            SAVE_BUTTON = "xpath://*[@content-desc='Save']",
+            ADD_TO_LIST_BUTTON = "xpath://android.widget.LinearLayout//*[@resource-id ='org.wikipedia:id/snackbar_action']",
+            MY_LIST_NAME_INPUT = "id:org.wikipedia:id/text_input",
+            MY_LIST_OK_BUTTON = "xpath://*[@text = 'OK']",
+            NAVIGATE_UP_BUTTON = "xpath://android.widget.ImageButton[@content-desc= 'Navigate up']",
+            SAVE_TO_FOLDER_TPL = "xpath://*[contains(@text, '{NAME_OF_FOLDER}')]",
+            VIEW_LIST_BUTTON = "xpath://android.widget.LinearLayout//*[@text ='View list']",
+            ASSERT_TEXT_LINK ="id:pcs-edit-section-title-description"
             ;
 
     /* TEMPLATE METHODS */
@@ -28,22 +28,18 @@ public class ArticlePageObject extends MainPageObject {
         return SAVE_TO_FOLDER_TPL.replace("{NAME_OF_FOLDER}", name_of_folder);
     }
 
-//    private static String getXPathOfButtonViewList(String name_of_button){
-//        return VIEW_LIST_BUTTON_TPL.replace("{NAME_OF_BUTTON}", name_of_button);
-//    }
-
     /* TEMPLATE METHODS */
 
     public WebElement waitForTitleElementInPortraitOrientation(){
         return this.waitForElementPresent(
-                By.xpath(TITLE_IN_PORTRAIT_ORIENTATION),
+                TITLE_IN_PORTRAIT_ORIENTATION,
                 "Cannot find article title on page!",
                 15);
     }
 
     public WebElement waitForTitleElementInLandscapeOrientation(){
         return this.waitForElementPresent(
-                By.xpath(TITLE_IN_LANDSCAPE_ORIENTATION),
+                TITLE_IN_LANDSCAPE_ORIENTATION,
                 "Cannot find article title on page!",
                 15);
     }
@@ -60,7 +56,7 @@ public class ArticlePageObject extends MainPageObject {
 
     public void  swipeToFooter(){
         this.swipeUpToFindElement(
-                By.xpath(FOOTER),
+                FOOTER,
                 "Cannot find the end of article",
                 20
         );
@@ -68,26 +64,26 @@ public class ArticlePageObject extends MainPageObject {
 
     public void addArticleToMyList(String name_of_folder){
         this.waitForElementAndClick(
-                By.xpath(SAVE_BUTTON),
+                SAVE_BUTTON,
                 "Cannot find button to save article",
                 5
         );
 
          this.waitForElementAndClick(
-                By.xpath(ADD_TO_LIST_BUTTON),
+                ADD_TO_LIST_BUTTON,
                 "Cannot find button to save article",
                 5
         );
 
         this.waitForElementAndSendKeys(
-                By.id(MY_LIST_NAME_INPUT),
+                MY_LIST_NAME_INPUT,
                 name_of_folder,
                 "Cannot put text into articles folder input",
                 5
         );
 
         this.waitForElementAndClick(
-                By.xpath(MY_LIST_OK_BUTTON),
+                MY_LIST_OK_BUTTON,
                 "Cannot press 'OK' button",
                 5
         );
@@ -95,13 +91,13 @@ public class ArticlePageObject extends MainPageObject {
 
     public void addAdditionalArticleToMyList(String name_of_folder){
         this.waitForElementAndClick(
-                By.xpath(SAVE_BUTTON),
+                SAVE_BUTTON,
                 "Cannot find button to save article",
                 5
         );
 
         this.waitForElementAndClick(
-                By.xpath(ADD_TO_LIST_BUTTON),
+                ADD_TO_LIST_BUTTON,
                 "Cannot find button to save article",
                 5
         );
@@ -109,7 +105,7 @@ public class ArticlePageObject extends MainPageObject {
         String folder_to_save_xpath = getXPathOfFolderToSave(name_of_folder);
 
         this.waitForElementAndClick(
-                By.xpath(folder_to_save_xpath),
+                folder_to_save_xpath,
                 "Cannot choose existing folder to save article",
                 5
         );
@@ -117,7 +113,7 @@ public class ArticlePageObject extends MainPageObject {
 
     public void moveToViewList(){
         this.waitForElementAndClick(
-                By.xpath(VIEW_LIST_BUTTON),
+                VIEW_LIST_BUTTON,
                 "Cannot view saved list",
                 5
         );
@@ -125,12 +121,12 @@ public class ArticlePageObject extends MainPageObject {
 
     public void closeArticle() {
         this.waitForElementAndClick(
-                By.xpath(NAVIGATE_UP_BUTTON),
+                NAVIGATE_UP_BUTTON,
                 "Cannot close article, cannot find 'Navigate Up' button",
                 5
         );
         this.waitForElementAndClick(
-                By.xpath(NAVIGATE_UP_BUTTON),
+                NAVIGATE_UP_BUTTON,
                 "Cannot close article, cannot find 'Navigate Up' button",
                 5
         );
@@ -138,7 +134,7 @@ public class ArticlePageObject extends MainPageObject {
 
     public void assertText() {
         super.assertElementPresent(
-                By.id("pcs-edit-section-title-description"),
+                ASSERT_TEXT_LINK,
                 "text",
                 "Object-oriented programming language",
                 "Element is not found",
